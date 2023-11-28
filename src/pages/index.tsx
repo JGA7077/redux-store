@@ -7,6 +7,8 @@ import ProductList from '@/components/ProductsList'
 const inter = Inter({ subsets: ['latin'] })
 
 const queryClient = new QueryClient();
+import { Provider } from 'react-redux';
+import store from '@/redux/store';
 
 export default function Home() {
   return (
@@ -16,8 +18,10 @@ export default function Home() {
         <meta name="theme-color" content="#020617" />
       </Head>
       <QueryClientProvider client={queryClient} >
-        <Header />
-        <ProductList />
+        <Provider store={store}>
+          <Header />
+          <ProductList />
+        </Provider>
       </QueryClientProvider>
     </>
   )

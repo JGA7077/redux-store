@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import {useQuery} from 'react-query';
+import { useFetchProducts } from '@/hooks/useFetchProducts';
+import { RootReducer } from '@/redux/root-reducer';
+import { useSelector } from 'react-redux';
 
 interface ProductItem {
   id: number;
@@ -14,22 +16,23 @@ interface ProductItem {
   }
 }
 
-const getProducts = async () => {
-  const response = fetch('https://fakestoreapi.com/products?limit=10')
-    .then(res => res.json())
-
-    return response
-}
-
 const ProductList = () => {
-  const {data, isLoading, error} = useQuery('products', getProducts)
+  const {data, isLoading, error} = useFetchProducts()
   console.log('data ==>', data);
+  console.log('error ==>', error);
 
   const handleAddProduct = () => {
 
   }
 
+  const {products} = useSelector((prevState: RootReducer) => prevState.cartReducer);
+
+  console.log('products ==>', products);
+
   if (isLoading) return <span>loading</span>
+
+  if (error) return <span>There&apos;s been an error on your request. Try again later.</span>
+
 
   return (
     <section>
