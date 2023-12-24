@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import { useFetchProducts } from '@/hooks/useFetchProducts';
-import { RootReducer } from '@/redux/root-reducer';
-import { useSelector } from 'react-redux';
+import { addProductToCart } from '@/redux/cart/actions';
+import { useDispatch } from 'react-redux';
 
-interface ProductItem {
+export interface ProductItem {
   id: number;
   title: string;
   price: number;
@@ -14,20 +14,16 @@ interface ProductItem {
     rate: number;
     count: number
   }
+  quantity: number;
 }
 
 const ProductList = () => {
   const {data, isLoading, error} = useFetchProducts()
-  console.log('data ==>', data);
-  console.log('error ==>', error);
+  const dispath = useDispatch()
 
-  const handleAddProduct = () => {
-
+  const handleAddProduct = (product: ProductItem) => {
+    dispath(addProductToCart(product))
   }
-
-  const {products} = useSelector((prevState: RootReducer) => prevState.cartReducer);
-
-  console.log('products ==>', products);
 
   if (isLoading) return <span>loading</span>
 
@@ -53,7 +49,7 @@ const ProductList = () => {
             <span>{(product.price).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</span>
             <button
               className="bg-slate-950 text-white rounded py-1 transition-all hover:scale-105 hover:drop-shadow-lg"
-              onClick={handleAddProduct}
+              onClick={() => handleAddProduct(product)}
             >Add to Cart</button>
           </li>
         ))}
