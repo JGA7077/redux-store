@@ -1,9 +1,10 @@
 import {combineReducers} from 'redux';
 import cartReducer from './cart/reducer';
+import { ProductItem } from "@/components/ProductsList";
 
 export interface RootReducer {
   cartReducer: {
-    products: [],
+    products: ProductItem[],
     productsTotalPrice: number
   }
 }
