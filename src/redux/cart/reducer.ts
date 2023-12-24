@@ -1,17 +1,22 @@
 import { ProductItem } from "@/components/ProductsList";
 import CartActionTypes from "./action-types";
 
-const initialState = {
+export const initialState = {
   products: [],
   productsTotalPrice: 0
 };
+
+interface State {
+  products: ProductItem[];
+  productsTotalPrice: number;
+}
 
 export interface Action {
   type: string;
   payload: ProductItem;
 }
 
-const cartReducer = (state = initialState, action: Action) => {
+const cartReducer = (state:State = initialState, action: Action) => {
   switch (action.type) {
     case CartActionTypes.ADD_PRODUCT:
       const productIsOnCart = state.products.some(
