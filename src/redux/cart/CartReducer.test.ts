@@ -77,4 +77,10 @@ describe('Cart Reducer', () => {
     expect(result.products.length).toBe(1);
     expect(result.products[0].quantity).toBe(2);
   })
+
+  it('should return the same state object when called with an unknown action type', () => {
+    const action = { type: 'UNKNOWN_ACTION', payload: emptyProductPayload };
+    const result = cartReducer(initialState, action);
+    expect(result).toBe(initialState);
+  });
 })
