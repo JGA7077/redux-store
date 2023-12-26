@@ -32,7 +32,7 @@ describe('Header Component', () => {
       </Provider>
     );
 
-    const headerElement = screen.getByRole('banner');
+    const headerElement = screen.getByTestId('main-header');
     expect(headerElement).toBeInTheDocument();
     expect(headerElement).toHaveClass('bg-slate-950');
   });
@@ -44,7 +44,7 @@ describe('Header Component', () => {
       </Provider>
     );
 
-    const containerElement = screen.getByRole('banner').querySelector('.container');
+    const containerElement = screen.getByTestId('header-content');
 
     expect(containerElement).toBeInTheDocument();
     expect(containerElement).toHaveClass('mx-auto');
