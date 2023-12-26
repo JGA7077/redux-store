@@ -9,8 +9,14 @@ const Header = () => {
   const productsCount = useSelector(selectProductsCount);
 
   return (
-    <header className="header-wrapper bg-slate-950 py-5">
-      <div className="header-content container mx-auto flex justify-between">
+    <header
+      className="bg-slate-950 py-5"
+      data-testid="main-header"
+    >
+      <div
+        className="container mx-auto flex justify-between"
+        data-testid="header-content"
+      >
         <h1
           className="text-white text-3xl"
         >Redux Store</h1>
