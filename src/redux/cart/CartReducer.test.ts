@@ -43,8 +43,6 @@ describe('Cart Reducer', () => {
     };
     const result = cartReducer(initialState, action);
 
-    console.log('initialState ==>', initialState);
-
     expect(result.products.length).toBe(1);
     expect(result.products[0]).toEqual(product);
   })

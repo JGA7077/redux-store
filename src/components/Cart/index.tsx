@@ -14,8 +14,6 @@ const Cart = ({ isCartVisible, setIsCartVisible }: CartProps) => {
   const { products } = useSelector((prevState: RootReducer) => prevState.cartReducer)
   const productsTotalPrice = useSelector(selectProductsTotalPrice)
 
-  console.log('products ==>', products)
-
   return (
     <section className={`fixed h-screen w-screen top-0 ${!isCartVisible && 'top-[-1000%]'}`}>
       <div className="w-full h-full bg-slate-800/[.7]" onClick={() => setIsCartVisible(false)}></div>
