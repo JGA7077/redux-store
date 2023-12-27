@@ -1,10 +1,11 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 
 import Cart from ".";
+import Header from '../Header';
 
 const cartReducerInitialState = {
   cartReducer: {
@@ -29,7 +30,6 @@ const emptyProductPayload = {
 
 const mockStore = configureStore([]);
 const store = mockStore(cartReducerInitialState)
-
 
 describe('Cart Component', () => {
   const isCartVisible = true;
@@ -100,5 +100,43 @@ describe('Cart Component', () => {
     const emptyCartText = screen.queryByText('Seu Carrinho está vazio');
     expect(emptyCartText).toBeNull();
     setIsCartVisible(false);
+  })
+
+  it('should show minicart on button click', () => {
+    render(
+      <Provider store={store}>
+        <Header />
+      </Provider>
+    );
+
+    const btnOpenCart = screen.getByRole('img');
+    expect(btnOpenCart).toHaveAttribute('alt', 'Ícone de sacola de compras')
+    const minicartContainer = screen.getByTestId("minicart-container");
+    expect(minicartContainer).toHaveClass('right-[-1000%]')
+    
+    fireEvent.click(btnOpenCart);
+
+    expect(minicartContainer).toHaveClass('right-0')
+  })
+
+  it('should hide minicart on close button click', () => {
+    render(
+      <Provider store={store}>
+        <Header />
+      </Provider>
+    );
+
+    const btnOpenCart = screen.getByRole('img');
+    expect(btnOpenCart).toHaveAttribute('alt', 'Ícone de sacola de compras');
+
+    const minicartContainer = screen.getByTestId("minicart-container");
+
+    const mbtnCloseCart = screen.getByRole('button');
+    expect(mbtnCloseCart).toHaveClass('bg-white rounded-full focus:ring-indigo-500');
+    
+    fireEvent.click(btnOpenCart);
+    fireEvent.click(mbtnCloseCart);
+
+    expect(minicartContainer).toHaveClass('right-[-1000%]');
   })
 })
