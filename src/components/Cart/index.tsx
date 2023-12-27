@@ -1,19 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
-import { selectProductsCount, selectProductsTotalPrice } from '@/redux/cart/cart.selectors'
 import { Dispatch, SetStateAction } from 'react'
-import { useSelector } from 'react-redux'
-import { RootReducer } from '@/redux/root-reducer'
+import { ProductItem } from '../ProductsList';
 
 interface CartProps {
-  isCartVisible: boolean
-  setIsCartVisible: Dispatch<SetStateAction<boolean>>
+  isCartVisible: boolean;
+  setIsCartVisible: Dispatch<SetStateAction<boolean>>;
+  products: ProductItem[];
+  productsTotalPrice: number;
+  productsCount: number;
 }
 
-const Cart = ({ isCartVisible, setIsCartVisible }: CartProps) => {
-  const productsCount = useSelector(selectProductsCount)
-  const { products } = useSelector((prevState: RootReducer) => prevState.cartReducer)
-  const productsTotalPrice = useSelector(selectProductsTotalPrice)
-
+const Cart = ({ isCartVisible, setIsCartVisible, products, productsTotalPrice, productsCount }: CartProps) => {
   return (
     <section
       className={`transition-all duration-400 ease-in fixed h-screen w-screen top-0 ${!isCartVisible ? 'right-[-1000%]' : 'right-0'}`}
