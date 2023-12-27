@@ -15,7 +15,9 @@ const Cart = ({ isCartVisible, setIsCartVisible }: CartProps) => {
   const productsTotalPrice = useSelector(selectProductsTotalPrice)
 
   return (
-    <section className={`fixed h-screen w-screen top-0 ${!isCartVisible && 'top-[-1000%]'}`}>
+    <section
+      className={`transition-all duration-400 ease-in fixed h-screen w-screen top-0 ${!isCartVisible ? 'right-[-1000%]' : 'right-0'}`}
+    >
       <div className="w-full h-full bg-slate-800/[.7]" onClick={() => setIsCartVisible(false)}></div>
 
       <article className="bg-white w-full md:w-96 h-full z-10 absolute top-0 right-0 p-5">
