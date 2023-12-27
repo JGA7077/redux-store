@@ -1,12 +1,15 @@
-import { selectProductsCount } from "@/redux/cart/cart.selectors";
+import { selectProductsCount, selectProductsTotalPrice } from "@/redux/cart/cart.selectors";
 import { useSelector } from "react-redux";
 import Cart from "../Cart";
 import { useState } from "react";
+import { RootReducer } from "@/redux/root-reducer";
 
 /* eslint-disable @next/next/no-img-element */
 const Header = () => {
   const [isCartVisible, setIsCartVisible] = useState(false);
   const productsCount = useSelector(selectProductsCount);
+  const { products } = useSelector((prevState: RootReducer) => prevState.cartReducer)
+  const productsTotalPrice = useSelector(selectProductsTotalPrice)
 
   return (
     <header
@@ -34,7 +37,13 @@ const Header = () => {
         </div>
       </div>
 
-      <Cart isCartVisible={isCartVisible} setIsCartVisible={setIsCartVisible} />
+      <Cart
+        isCartVisible={isCartVisible}
+        setIsCartVisible={setIsCartVisible}
+        products={products}
+        productsTotalPrice={productsTotalPrice}
+        productsCount={productsCount}
+      />
     </header>
   )
 }
