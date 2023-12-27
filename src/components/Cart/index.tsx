@@ -21,7 +21,7 @@ const Cart = ({ isCartVisible, setIsCartVisible, products, productsTotalPrice, p
       <article className="bg-white w-full md:w-96 h-full z-10 absolute top-0 right-0 p-5">
         <header className="flex items-center justify-between">
           <div>
-            <strong>Meu carrinho</strong>
+            <strong>My Cart</strong>
             <span>({productsCount})</span>
           </div>
 
@@ -58,7 +58,7 @@ const Cart = ({ isCartVisible, setIsCartVisible, products, productsTotalPrice, p
 
                 <div className="flex flex-col w-3/4 gap-1">
                   <p className="text-sm line-clamp-2">{product.title}</p>
-                  <span className="text-xs">Quantidade: {product.quantity}</span>
+                  <span className="text-xs">Quantity: {product.quantity}</span>
                   <strong className="text-base">
                     {(product.price * product.quantity).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                   </strong>
@@ -93,7 +93,7 @@ const Cart = ({ isCartVisible, setIsCartVisible, products, productsTotalPrice, p
                   </svg>
                 </div>
               </div>
-              <strong className="text-center inline-block w-full">Seu Carrinho está vazio</strong>
+              <strong className="text-center inline-block w-full">Your cart is empty</strong>
             </li>
           )}
         </ul>

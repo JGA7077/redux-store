@@ -34,7 +34,7 @@ describe('Cart Component', () => {
       </Provider>
     );
 
-    screen.getByText('Meu carrinho');
+    screen.getByText('My Cart');
     setIsCartVisible(false);
   });
 
@@ -51,7 +51,7 @@ describe('Cart Component', () => {
       </Provider>
     );
 
-    screen.getByText('Seu Carrinho está vazio');
+    screen.getByText('Your cart is empty');
     setIsCartVisible(false);
   })
 
@@ -83,7 +83,7 @@ describe('Cart Component', () => {
       </Provider>
     );
 
-    const emptyCartText = screen.queryByText('Seu Carrinho está vazio');
+    const emptyCartText = screen.queryByText('Your cart is empty');
     expect(emptyCartText).toBeNull();
     setIsCartVisible(false);
   })
