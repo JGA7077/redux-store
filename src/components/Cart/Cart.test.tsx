@@ -14,20 +14,6 @@ const cartReducerInitialState = {
   }
 };
 
-const emptyProductPayload = {
-  id: 0,
-  title: "",
-  price: 0,
-  description: "",
-  category: "",
-  image: "",
-  rating: {
-    rate: 0,
-    count: 0
-  },
-  quantity: 0
-}
-
 const mockStore = configureStore([]);
 const store = mockStore(cartReducerInitialState)
 
