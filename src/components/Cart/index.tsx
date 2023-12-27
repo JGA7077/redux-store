@@ -13,6 +13,7 @@ interface CartProps {
 const Cart = ({ isCartVisible, setIsCartVisible, products, productsTotalPrice, productsCount }: CartProps) => {
   return (
     <section
+      data-testid="minicart-container"
       className={`transition-all duration-400 ease-in fixed h-screen w-screen top-0 ${!isCartVisible ? 'right-[-1000%]' : 'right-0'}`}
     >
       <div className="w-full h-full bg-slate-800/[.7]" onClick={() => setIsCartVisible(false)}></div>
