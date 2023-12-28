@@ -6,7 +6,7 @@ const AddedProductAlert = ({showAddedProductAlert}: AddedProductAlert) => {
   return (
     
     <figure
-      className={`transition-all duration-700 ease-in py-1 px-5 bg-green-300 text-green-800 rounded-lg border border-green-800 fixed top-24 ${showAddedProductAlert ? 'left-[50%]' : 'left-[-1000%]'}`}
+      className={`transition-all duration-700 ease-in py-1 px-5 bg-green-300 text-green-800 rounded-lg border border-green-800 fixed top-24 ${showAddedProductAlert ? 'left-[0%] translate-x-2/4' : 'left-[-1000%]'}`}
     >
       <figcaption>Product Added!</figcaption>
     </figure>
