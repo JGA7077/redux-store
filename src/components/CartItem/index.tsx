@@ -10,7 +10,7 @@ interface CartItem {
 const CartItem = ({product}: CartItem) => {
   const dispath = useDispatch();
   const handleRemoveClick = () => {
-    dispath(removeProductFromCart(product.id))
+    dispath(removeProductFromCart(product))
   };
 
   return (
