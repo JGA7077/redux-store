@@ -17,12 +17,21 @@ export interface ProductItem {
   quantity: number;
 }
 
-const ProductList = () => {
+interface ProductList {
+  setShowAddedProductAlert: (arg0: boolean) => void;
+}
+
+const ProductList = ({setShowAddedProductAlert}: ProductList) => {
   const {data, isLoading, error} = useFetchProducts()
   const dispath = useDispatch()
 
   const handleAddProduct = (product: ProductItem) => {
     dispath(addProductToCart(product))
+    setShowAddedProductAlert(true);
+
+    setTimeout(() => {
+      setShowAddedProductAlert(false);
+    }, 1700);
   }
 
   if (isLoading) return <span>loading</span>
