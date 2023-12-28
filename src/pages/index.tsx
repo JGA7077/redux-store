@@ -9,8 +9,12 @@ const inter = Inter({ subsets: ['latin'] })
 const queryClient = new QueryClient();
 import { Provider } from 'react-redux';
 import store from '@/redux/store';
+import { useState } from 'react';
+import AddedProductAlert from '@/components/AddedProductAlert';
 
 export default function Home() {
+  const [showAddedProductAlert, setShowAddedProductAlert] = useState(false);
+
   return (
     <>
       <Head>
@@ -20,7 +24,12 @@ export default function Home() {
       <QueryClientProvider client={queryClient} >
         <Provider store={store}>
           <Header />
-          <ProductList />
+          <ProductList
+            setShowAddedProductAlert={setShowAddedProductAlert}
+          />
+          <AddedProductAlert
+            showAddedProductAlert={showAddedProductAlert}
+          />
         </Provider>
       </QueryClientProvider>
     </>
