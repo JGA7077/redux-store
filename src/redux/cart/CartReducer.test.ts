@@ -81,4 +81,125 @@ describe('Cart Reducer', () => {
     const result = cartReducer(initialState, action);
     expect(result).toBe(initialState);
   });
+
+  it('should increase the quantity of cart counter with two differents products', () => {
+    const firstProduct = {
+      id: 1,
+      title: 'Test Product',
+      price: 10,
+      description: 'Test Description',
+      category: 'Test Category',
+      image: 'test-image.jpg',
+      rating: {
+        rate: 4.5,
+        count: 10
+      },
+      quantity: 1
+    };
+
+    const firstProductAction = {
+      type: CartActionTypes.ADD_PRODUCT,
+      payload: firstProduct
+    }
+    const firstProductResult = cartReducer(initialState, firstProductAction);
+
+    expect(firstProductResult.products.length).toBe(1);
+    
+    const secondProduct = {
+      id: 2,
+      title: 'Test Product 2',
+      price: 30,
+      description: 'Test Description 2',
+      category: 'Test Category 2',
+      image: 'test-image.jpg',
+      rating: {
+        rate: 3,
+        count: 10
+      },
+      quantity: 1
+    };
+    const secondProductAction = {
+      type: CartActionTypes.ADD_PRODUCT,
+      payload: secondProduct
+    }
+    const secondProductResult = cartReducer(firstProductResult, secondProductAction);
+
+    expect(secondProductResult.products.length).toBe(2);
+  })
+
+  it('should remove a product from cart when called REMOVE_PRODUCT action', () => {
+    const product = {
+      id: 1,
+      title: 'Test Product',
+      price: 10,
+      description: 'Test Description',
+      category: 'Test Category',
+      image: 'test-image.jpg',
+      rating: {
+        rate: 4.5,
+        count: 10
+      },
+      quantity: 1
+    };
+    const addProductAction = {
+      type: CartActionTypes.ADD_PRODUCT,
+      payload: product
+    };
+    const addProductResult = cartReducer(initialState, addProductAction);
+
+    expect(addProductResult.products.length).toBe(1);
+    expect(addProductResult.products[0]).toEqual(product);
+
+    const removeAction = {
+      type: CartActionTypes.REMOVE_PRODUCT,
+      payload: product
+    };
+    const removeProductResult = cartReducer(initialState, removeAction);
+    expect(removeProductResult.products.length).toBe(0);
+  })
+
+  it('should return the same previous state when called REMOVE_PRODUCT action with wrong id', () =>{
+    const product = {
+      id: 1,
+      title: 'Test Product',
+      price: 10,
+      description: 'Test Description',
+      category: 'Test Category',
+      image: 'test-image.jpg',
+      rating: {
+        rate: 4.5,
+        count: 10
+      },
+      quantity: 1
+    };
+    const addProductAction = {
+      type: CartActionTypes.ADD_PRODUCT,
+      payload: product
+    };
+    const addProductResult = cartReducer(initialState, addProductAction);
+
+    expect(addProductResult.products.length).toBe(1);
+    expect(addProductResult.products[0]).toEqual(product);
+
+    const wrongProduct = {
+      id: 2,
+      title: 'Test Product 2',
+      price: 30,
+      description: 'Test Description 2',
+      category: 'Test Category 2',
+      image: 'test-image.jpg',
+      rating: {
+        rate: 3,
+        count: 10
+      },
+      quantity: 1
+    };
+
+    const removeAction = {
+      type: CartActionTypes.REMOVE_PRODUCT,
+      payload: wrongProduct
+    }
+    const removeProductResult = cartReducer(addProductResult, removeAction);
+    expect(removeProductResult.products.length).toBe(1);
+  })
 })
