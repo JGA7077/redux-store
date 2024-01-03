@@ -12,3 +12,17 @@ export const removeProductFromCart = (payload: ProductItem) => ({
     id: payload.id
   }
 })
+
+export const increaseProductQty = (payload: number) => ({
+  type: CartActionTypes.INCREASE_PRODUCT_QTY,
+  payload: {
+    id: payload
+  }
+})
+
+export const decreaseProductQty = (payload: number) => ({
+  type: CartActionTypes.DECREASE_PRODUCT_QTY,
+  payload: {
+    id: payload
+  }
+})
