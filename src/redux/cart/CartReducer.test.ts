@@ -1,4 +1,5 @@
 import CartActionTypes from "./action-types";
+import { increaseProductQty } from "./actions";
 import cartReducer, {initialState} from "./reducer"
 
 const emptyProductPayload = {
@@ -202,4 +203,73 @@ describe('Cart Reducer', () => {
     const removeProductResult = cartReducer(addProductResult, removeAction);
     expect(removeProductResult.products.length).toBe(1);
   })
+
+  it('should increase the quantity of a product already on the cart when adding it again', () => {
+    const product = {
+      id: 1,
+      title: 'Test Product',
+      price: 10,
+      description: 'Test Description',
+      category: 'Test Category',
+      image: 'test-image.jpg',
+      rating: {
+        rate: 4.5,
+        count: 10
+      },
+      quantity: 1
+    };
+
+    const addProductAction = {
+      type: CartActionTypes.ADD_PRODUCT,
+      payload: product
+    };
+    const result = cartReducer(initialState, addProductAction);
+
+    expect(result.products.length).toBe(1);
+    expect(result.products[0]).toEqual(product);
+
+    const increaseProductAction = {
+      type: CartActionTypes.INCREASE_PRODUCT_QTY,
+      payload: product
+    };
+    const increaseQtyResult = cartReducer(result, increaseProductAction);
+
+    expect(increaseQtyResult.products.length).toBe(1);
+    expect(increaseQtyResult.products[0].quantity).toEqual(2);
+  });
+
+  it('should decrease the quantity of a product already on the cart', () => {
+    const product = {
+      id: 1,
+      title: 'Test Product',
+      price: 10,
+      description: 'Test Description',
+      category: 'Test Category',
+      image: 'test-image.jpg',
+      rating: {
+        rate: 4.5,
+        count: 10
+      },
+      quantity: 1
+    };
+
+    const addProductAction = {
+      type: CartActionTypes.ADD_PRODUCT,
+      payload: product
+    };
+    const firstProduct = cartReducer(initialState, addProductAction);
+    const result = cartReducer(firstProduct, addProductAction);
+
+    expect(result.products.length).toBe(1);
+
+    const increaseProductAction = {
+      type: CartActionTypes.DECREASE_PRODUCT_QTY,
+      payload: product
+    };
+    const increaseQtyResult = cartReducer(result, increaseProductAction);
+
+    expect(increaseQtyResult.products.length).toBe(1);
+    expect(increaseQtyResult.products[0].quantity).toEqual(1);
+  });
+
 })
