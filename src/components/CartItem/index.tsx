@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useDispatch } from "react-redux";
 import { ProductItem } from "../ProductsList"
-import { removeProductFromCart } from "@/redux/cart/actions";
+import { removeProductFromCart, decreaseProductQty, increaseProductQty } from "@/redux/cart/actions";
 
 interface CartItem {
   product: ProductItem;
@@ -11,6 +11,14 @@ const CartItem = ({product}: CartItem) => {
   const dispath = useDispatch();
   const handleRemoveClick = () => {
     dispath(removeProductFromCart(product))
+  };
+
+  const handleIncreaseClick = () => {
+    dispath(increaseProductQty(product.id))
+  };
+
+  const handleDecreaseClick = () => {
+    dispath(decreaseProductQty(product.id))
   };
 
   return (
@@ -35,15 +43,21 @@ const CartItem = ({product}: CartItem) => {
         <p className="text-sm line-clamp-2">{product.title}</p>
         <span className="text-xs">Quantity: {product.quantity}</span>
         <strong className="text-base">
-          {(product.price * product.quantity).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+          {(product.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
         </strong>
 
         <div className="w-1/3 flex justify-between border-b border-neutral-400">
-          <button className="w-4">-</button>
+          <button
+            className="w-4"
+            onClick={handleDecreaseClick}
+          >-</button>
 
           <span className="w-auto text-center">{product.quantity}</span>
 
-          <button className="w-4">+</button>
+          <button
+            className="w-4"
+            onClick={handleIncreaseClick}
+          >+</button>
         </div>
       </div>
     </li>
